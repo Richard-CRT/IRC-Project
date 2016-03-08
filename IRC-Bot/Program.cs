@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using IRCLibrary;
 
-namespace Chat_AI
+namespace Chat_Bot
 {
     class Program
     {

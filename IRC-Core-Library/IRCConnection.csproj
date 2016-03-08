@@ -45,7 +45,6 @@
     <Compile Include="Classes\ObserverClass.cs" />
     <Compile Include="Classes\SocketClass.cs" />
     <Compile Include="Classes\UserClass.cs" />
-    <Compile Include="CommandObserverClass.cs" />
     <Compile Include="Handlers\ChannelHandler.cs" />
     <Compile Include="Handlers\ConnectionHandler.cs" />
     <Compile Include="Handlers\LogObject.cs" />

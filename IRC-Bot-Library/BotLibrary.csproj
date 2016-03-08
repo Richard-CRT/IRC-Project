@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BotClass.cs" />
+    <Compile Include="CommandObserverClass.cs" />
     <Compile Include="commands\Help.cs" />
     <Compile Include="commands\IRC.cs" />
     <Compile Include="commands\Login.cs" />
