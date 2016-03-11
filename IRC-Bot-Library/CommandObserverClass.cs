@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IRCLibrary.handlers;
+using IRCLibrary;
 
-namespace IRCLibrary
+namespace BotLibrary
 {
     public delegate void CommandHandlerCallBack(UserClass user, ChannelClass channel, string message, List<string> messageList, int mediumType);
 

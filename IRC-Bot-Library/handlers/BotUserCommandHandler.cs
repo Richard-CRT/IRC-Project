@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using IRCLibrary.commands;
+using IRCLibrary;
 
-namespace IRCLibrary.handlers
+namespace BotLibrary
 {
 
     public class BotUserCommandHandler

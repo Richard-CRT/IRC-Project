@@ -90,11 +90,8 @@ namespace IRCLibrary
             if (capturedNick.ToLower() != Client.NickLower)
             {
                 int index = Client.findChannelIndex(capturedChannel);
-                if (index != -1)
-                {
-                    // Add the user to the channel user list
-                    Client.Channels[index].Users.Add(new ChannelUserClass(Client, capturedNick, capturedIdent, capturedServer));
-                }
+                // Add the user to the channel user list
+                Client.Channels[index].Users.Add(new ChannelUserClass(Client, capturedNick, capturedIdent, capturedServer));
             }
         }
 
@@ -105,25 +102,16 @@ namespace IRCLibrary
             int channelIndex = Client.findChannelIndex(capturedChannel);
             if (capturedNick.ToLower() != Client.NickLower)
             {
-                if (channelIndex != -1)
+                int index = Client.findChannelClientIndex(channelIndex, capturedNick);
+                // Remove the user from the channel user list
+                Client.Channels[channelIndex].Users.RemoveAt(index);
+                // Find index
+                int indexToSearch = Client.findUserIndex(capturedNick);
+                // Remove the user from the global user list if user wasn't present in any other channel
+                bool foundUsage = Client.inChannel(Client.Users[indexToSearch].ID);
+                if (!foundUsage)
                 {
-                    int index = Client.findChannelClientIndex(channelIndex, capturedNick.ToLower());
-                    if (index != -1)
-                    {
-                        // Remove the user from the channel user list
-                        Client.Channels[channelIndex].Users.RemoveAt(index);
-                        // Find index
-                        int indexToSearch = Client.findUserIndex(capturedNick);
-                        if (indexToSearch != -1)
-                        {
-                            // Remove the user from the global user list if user wasn't present in any other channel
-                            bool foundUsage = Client.inChannel(Client.Users[indexToSearch].ID);
-                            if (!foundUsage)
-                            {
-                                Client.Users.RemoveAt(indexToSearch);
-                            }
-                        }
-                    }
+                    Client.Users.RemoveAt(indexToSearch);
                 }
             }
             else
@@ -149,27 +137,24 @@ namespace IRCLibrary
             {
                 // Find ID
                 int indexToSearch = Client.findUserIndex(capturedNick);
-                if (indexToSearch != -1)
+                // Remove the user from all channel user lists
+                for (int x = 0; x < Client.Channels.Count(); x++)
                 {
-                    // Remove the user from all channel user lists
-                    for (int x = 0; x < Client.Channels.Count(); x++)
+                    List<int> ToRemove = new List<int>();
+                    for (int n = 0; n < Client.Channels[x].Users.Count(); n++)
                     {
-                        List<int> ToRemove = new List<int>();
-                        for (int n = 0; n < Client.Channels[x].Users.Count(); n++)
+                        if (Client.Channels[x].Users[n].ID == Client.Users[indexToSearch].ID)
                         {
-                            if (Client.Channels[x].Users[n].ID == Client.Users[indexToSearch].ID)
-                            {
-                                ToRemove.Add(n);
-                            }
-                        }
-                        foreach (int index in ToRemove)
-                        {
-                            Client.Channels[x].Users.RemoveAt(index);
+                            ToRemove.Add(n);
                         }
                     }
-                    // Remove the user from the global user list
-                    Client.Users.RemoveAt(indexToSearch);
+                    foreach (int index in ToRemove)
+                    {
+                        Client.Channels[x].Users.RemoveAt(index);
+                    }
                 }
+                // Remove the user from the global user list
+                Client.Users.RemoveAt(indexToSearch);
             }
         }
 
@@ -178,11 +163,8 @@ namespace IRCLibrary
             string capturedNick = groups[1].Value;
             string capturedNewNick = groups[2].Value;
             int index = Client.findUserIndex(capturedNick);
-            if (index != -1)
-            {
-                Client.Users[index].Name = capturedNewNick;
-                Client.Users[index].NameLower = capturedNewNick.ToLower();
-            }
+            Client.Users[index].Name = capturedNewNick;
+            Client.Users[index].NameLower = capturedNewNick.ToLower();
             if (capturedNick.ToLower() == Client.NickLower)
             {
                 Client.Nick = capturedNewNick;

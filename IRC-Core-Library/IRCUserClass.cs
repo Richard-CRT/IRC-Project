@@ -181,6 +181,7 @@ namespace IRCLibrary
 
         public int findChannelClientIndex(int channelIndex, string user)
         {
+            user = user.ToLower();
             int index = -1;
             for (int i = 0; i < Channels[channelIndex].Users.Count(); i++)
             {

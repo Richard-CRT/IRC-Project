@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{35D8007D-D40B-4F34-85A7-3DFFD705AC8C}</ProjectGuid>
+    <ProjectGuid>{7CA2B4A5-AAFA-4F6A-888D-CE85CC998554}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>IRCConnection</RootNamespace>
-    <AssemblyName>IRCConnection</AssemblyName>
+    <RootNamespace>BouncerManager</RootNamespace>
+    <AssemblyName>BouncerManager</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -40,19 +40,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\ChannelClass.cs" />
-    <Compile Include="Classes\ChannelUserClass.cs" />
-    <Compile Include="Classes\ObserverClass.cs" />
-    <Compile Include="Classes\SocketClass.cs" />
-    <Compile Include="Classes\UserClass.cs" />
-    <Compile Include="Handlers\ChannelHandler.cs" />
-    <Compile Include="Handlers\ConnectionHandler.cs" />
-    <Compile Include="Handlers\LogObject.cs" />
-    <Compile Include="Handlers\WhoIsHandler.cs" />
-    <Compile Include="IRCUserClass.cs" />
+    <Compile Include="BouncerManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\BouncerServerLibrary\BouncerServerLibrary.csproj">
+      <Project>{84dc38e0-ad23-4bb2-a40e-885287f5f6db}</Project>
+      <Name>BouncerServerLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IRCConnection\IRCConnection.csproj">
+      <Project>{35d8007d-d40b-4f34-85a7-3dffd705ac8c}</Project>
+      <Name>IRCConnection</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -2,20 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Threading;
-using BotLibrary;
+using System.Threading.Tasks;
+using BouncerServerManagerNS;
 
-namespace Chat_Bot
+namespace IRC_Bouncer
 {
     class Program
     {
-        static public Bot bot { get; set; }
+        static public BouncerManager bouncerManager { get; set; }
 
         static public void Main(string[] args)
         {
             Console.WriteLine("Starting...");
-            bot = new Bot();
+            bouncerManager = new BouncerManager();
+
             while (true)
             {
                 Thread.Sleep(100);

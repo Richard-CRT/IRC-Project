@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using IRCLibrary;
 
-namespace IRCLibrary.handlers
+namespace BotLibrary
 {
     public class HelpCommand
     {

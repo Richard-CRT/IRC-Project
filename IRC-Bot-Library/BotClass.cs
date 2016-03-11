@@ -7,9 +7,10 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Xml;
 using System.IO;
+using IRCLibrary;
 using IRCLibrary.handlers;
 
-namespace IRCLibrary
+namespace BotLibrary
 {
 
     public class Bot
