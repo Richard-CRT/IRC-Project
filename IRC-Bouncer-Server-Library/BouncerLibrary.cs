@@ -12,9 +12,11 @@ namespace BouncerServerLibraryNS
     {
         public AsynchronousSocketListener SocketConnection { get; set; }
         public int Port { get; set; }
+        public dynamic Client { get; set; }
         
-        public BouncerServerLibrary(int port)
+        public BouncerServerLibrary(dynamic client, int port)
         {
+            Client = client;
             Port = port;
         }
 
@@ -23,6 +25,7 @@ namespace BouncerServerLibraryNS
             if (receive)
             {
                 Console.WriteLine("BOUNCER ← " + message);
+                Client.SendRaw(message);
             }
             else
             {

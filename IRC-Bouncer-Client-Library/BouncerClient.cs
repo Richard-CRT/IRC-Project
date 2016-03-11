@@ -17,6 +17,7 @@ namespace BouncerClientLibraryNS
         public Form MainForm { get; set; }
         public Control RunButton { get; set; }
         public Control TextboxEdit { get; set; }
+        public Control TextboxInput { get; set; }
 
         public BouncerClientLibrary(Form mainForm, string ip, int port)
         {
@@ -32,6 +33,9 @@ namespace BouncerClientLibraryNS
                         break;
                     case "TextboxEdit":
                         TextboxEdit = control;
+                        break;
+                    case "TextboxInput":
+                        TextboxInput = control;
                         break;
                 }
             }

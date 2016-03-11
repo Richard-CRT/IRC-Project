@@ -45,12 +45,12 @@ namespace BouncerServerManagerNS
             }
         }
 
-        private void ClientThread(IRCUser Client, BouncerServerLibrary Bouncer)
+        private void ClientThread(IRCUser Client)
         {
             Client.Connect();
         }
 
-        private void BouncerThread(BouncerServerLibrary Bouncer, IRCUser Client)
+        private void BouncerThread(BouncerServerLibrary Bouncer)
         {
             Bouncer.Connect();
         }
@@ -77,15 +77,15 @@ namespace BouncerServerManagerNS
             }
 
             Client = new IRCUser(Nick, Server, 6667, DefaultChannels, Ident, Hostname, "", "");
-            Bouncer = new BouncerServerLibrary(8889);
+            Bouncer = new BouncerServerLibrary(Client, 8889);
 
             Thread t = new Thread(() => { inputCMD(Client); });
             t.IsBackground = true;
 
-            Thread clientThread = new Thread(() => { ClientThread(Client, Bouncer); });
+            Thread clientThread = new Thread(() => { ClientThread(Client); });
             clientThread.IsBackground = true;
 
-            Thread bouncerThread = new Thread(() => { BouncerThread(Bouncer, Client); });
+            Thread bouncerThread = new Thread(() => { BouncerThread(Bouncer); });
             bouncerThread.IsBackground = true;
 
             t.Start();
