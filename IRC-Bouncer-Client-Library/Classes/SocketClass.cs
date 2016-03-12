@@ -106,10 +106,9 @@ public class AsynchronousClient
             // Signal that the connection has been made.
             connectDone.Set();
         }
-        catch (Exception e)
+        catch (System.Net.Sockets.SocketException e)
         {
-            CommandHandler("Error", false);
-            CommandHandler(e.ToString(),false);
+            CommandHandler("Cannot Connect", false);
         }
     }
 
@@ -141,7 +140,9 @@ public class AsynchronousClient
             StateObject state = (StateObject)ar.AsyncState;
             Socket client = state.workSocket;
 
-            // Read data from the remote device.
+        // Read data from the remote device.
+        try
+        {
             int bytesRead = client.EndReceive(ar);
 
             if (bytesRead > 0)
@@ -164,7 +165,8 @@ public class AsynchronousClient
                         if (dataRead.Length == 1)
                         {
                             dataRead = "";
-                        } else
+                        }
+                        else
                         {
                             dataRead = dataRead.Substring(counter);
                         }
@@ -187,6 +189,12 @@ public class AsynchronousClient
                 // Signal that all bytes have been received.
                 receiveDone.Set();
             }
+        }
+        catch (System.Net.Sockets.SocketException e)
+        {
+            CommandHandler("SERVER: DISCONNECTED", false);
+            connected = false;
+        }
         //}
         //catch (Exception e)
         //{
