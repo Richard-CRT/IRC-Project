@@ -4,7 +4,9 @@ using System.Net.Sockets;
 using System.Threading;
 using System.Text;
 using IRCLibrary;
-
+using System.IO;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace IRCLibrary
 {
@@ -249,6 +251,32 @@ namespace IRCLibrary
         public void Start()
         {
             StartClient();
+            return;
+        }
+
+        public void StartDebug()
+        {
+            foreach (string line in File.ReadLines(@"debug.log"))
+            {
+                List<string> split = line.Split(' ').ToList();
+                if (split[2] == "RECEIVED")
+                {
+                    connected = true;
+                    split.RemoveAt(0);
+                    split.RemoveAt(0);
+                    split.RemoveAt(0);
+                    string command = String.Join(" ", split);
+                    CommandHandler(command, true);
+                }
+                else
+                {
+                    split.RemoveAt(0);
+                    split.RemoveAt(0);
+                    split.RemoveAt(0);
+                    string command = String.Join(" ", split);
+                    CommandHandler(command, false);
+                }
+            }
             return;
         }
     }

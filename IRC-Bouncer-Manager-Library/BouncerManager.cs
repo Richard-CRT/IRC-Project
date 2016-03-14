@@ -76,7 +76,7 @@ namespace BouncerServerManagerNS
                 }
             }
 
-            Client = new IRCUser(Nick, Server, 6667, DefaultChannels, Ident, Hostname, "", "");
+            Client = new IRCUser(Nick, Server, 6667, DefaultChannels, Ident, Hostname, "", "", false);
             Bouncer = new BouncerServerLibrary(Client, 8889);
 
             Thread t = new Thread(() => { inputCMD(Client); });

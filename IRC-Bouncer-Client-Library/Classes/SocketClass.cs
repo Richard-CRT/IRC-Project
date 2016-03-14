@@ -4,6 +4,7 @@ using System.Net.Sockets;
 using System.Threading;
 using System.Text;
 using BouncerClientLibraryNS;
+using System.Windows.Forms;
 
 
 // State object for receiving data from remote device.
@@ -69,20 +70,10 @@ public class AsynchronousClient
 
             connected = true;
             CommandHandler("SERVER: CONNECTED", false);
-
             // Send test data to the remote device.
 
             // Receive the response from the remote device.
             Receive(client);
-            receiveDone.WaitOne();
-
-            // Write the response to the console.
-            //base.Print("Response received : {0}", response);
-
-            connected = false;
-            // Release the socket.
-            client.Shutdown(SocketShutdown.Both);
-            client.Close();
         }
         catch (Exception e)
         {
@@ -195,6 +186,10 @@ public class AsynchronousClient
             CommandHandler("SERVER: DISCONNECTED", false);
             connected = false;
         }
+        catch (System.ObjectDisposedException e)
+        {
+
+        }
         //}
         //catch (Exception e)
         //{
@@ -258,6 +253,5 @@ public class AsynchronousClient
     public void Start()
     {
         StartClient();
-        return;
     }
 }

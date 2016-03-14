@@ -39,6 +39,7 @@ public class AsynchronousSocketListener
 
     public void StartListening()
     {
+        bool first = true;
         // Data buffer for incoming data.
         byte[] bytes = new Byte[1024];
 
@@ -65,7 +66,11 @@ public class AsynchronousSocketListener
                 // Set the event to nonsignaled state.
                 allDone.Reset();
                 // Start an asynchronous socket to listen for connections.
-                CommandHandler("New Connection!", false);
+                if (!first)
+                {
+                    first = false;
+                    CommandHandler("NewS Connection!", false);
+                }
                 CommandHandler("Awaiting connection...",false);
 
                 listener.BeginAccept(

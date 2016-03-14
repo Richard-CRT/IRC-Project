@@ -88,7 +88,7 @@ namespace BotLibrary
             Thread t = new Thread(() => { inputCMD(Client); });
             t.IsBackground = true;
 
-            Client = new IRCUser(Nick, Server, 6667, DefaultChannels, Ident, Hostname, AuthUsername, AuthPassword);
+            Client = new IRCUser(Nick, Server, 6667, DefaultChannels, Ident, Hostname, AuthUsername, AuthPassword, false);
 
             botUserCommandHandler = new BotUserCommandHandler(this);
             t.Start();

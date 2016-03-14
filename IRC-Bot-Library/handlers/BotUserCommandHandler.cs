@@ -30,6 +30,7 @@ namespace BotLibrary
             StatusCommand status = new StatusCommand(bot);
             HelpCommand help = new HelpCommand(bot);
             IRCCommand irc = new IRCCommand(bot);
+            CoinflipCommand coinflip = new CoinflipCommand(bot);
         }
 
         public void command(List<string> parameters, GroupCollection groups, bool receive)

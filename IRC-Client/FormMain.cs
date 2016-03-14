@@ -14,31 +14,39 @@ namespace IRC_Client
 {
     public partial class FormMain : Form
     {
-        public Thread BouncerClientThread;
         BouncerClientLibrary Bouncer;
+        public Dictionary<string,string> Logs;
 
         public FormMain()
         {
             InitializeComponent();
-
-            BouncerClientThread = new Thread(() => { bouncerClientThread(); });
-            BouncerClientThread.IsBackground = true;
-        }
-
-        private void bouncerClientThread()
-        {
-            Bouncer = new BouncerClientLibrary(this,"192.168.0.111", 8889);
-            Bouncer.Connect();
+            Bouncer = new BouncerClientLibrary(this);
         }
 
         private void ButtonConnect_Click(object sender, EventArgs e)
         {
-            BouncerClientThread.Start();
+            if (Bouncer.SocketConnection != null)
+            {
+                Bouncer.SocketConnection.client.Close();
+            }
+            Bouncer.Connect("192.168.0.111", 8889);
         }
 
         private void ButtonSend_Click(object sender, EventArgs e)
         {
-            Bouncer.SocketConnection.Send("Test");
+            Bouncer.SocketConnection.Send(TextBoxInput.Text);
+        }
+
+        public void Log(string message)
+        {
+            if (RTextBoxChat.Text == "")
+            {
+                RTextBoxChat.AppendText(message);
+            }
+            else
+            {
+                RTextBoxChat.AppendText(Environment.NewLine + message);
+            }
         }
     }
 }

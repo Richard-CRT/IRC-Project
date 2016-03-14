@@ -1,4 +1,6 @@
-﻿namespace IRC_Client
+﻿using System;
+
+namespace IRC_Client
 {
     partial class FormMain
     {
@@ -28,68 +30,112 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.ButtonSend = new System.Windows.Forms.Button();
-            this.TextboxEdit = new System.Windows.Forms.TextBox();
-            this.TextboxInput = new System.Windows.Forms.TextBox();
             this.ButtonConnect = new System.Windows.Forms.Button();
+            this.MenuStrip = new System.Windows.Forms.MenuStrip();
+            this.MenuFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.TreeViewServers = new System.Windows.Forms.TreeView();
+            this.RTextBoxChat = new System.Windows.Forms.RichTextBox();
+            this.TextBoxInput = new System.Windows.Forms.TextBox();
+            this.ButtonSend = new System.Windows.Forms.Button();
+            this.MenuStrip.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // ButtonSend
-            // 
-            this.ButtonSend.Location = new System.Drawing.Point(131, 411);
-            this.ButtonSend.Name = "ButtonSend";
-            this.ButtonSend.Size = new System.Drawing.Size(92, 23);
-            this.ButtonSend.TabIndex = 0;
-            this.ButtonSend.Text = "Send";
-            this.ButtonSend.UseVisualStyleBackColor = true;
-            this.ButtonSend.Click += new System.EventHandler(this.ButtonSend_Click);
-            // 
-            // TextboxEdit
-            // 
-            this.TextboxEdit.Location = new System.Drawing.Point(17, 19);
-            this.TextboxEdit.Multiline = true;
-            this.TextboxEdit.Name = "TextboxEdit";
-            this.TextboxEdit.Size = new System.Drawing.Size(510, 357);
-            this.TextboxEdit.TabIndex = 1;
-            // 
-            // TextboxInput
-            // 
-            this.TextboxInput.Location = new System.Drawing.Point(17, 383);
-            this.TextboxInput.Name = "TextboxInput";
-            this.TextboxInput.Size = new System.Drawing.Size(510, 22);
-            this.TextboxInput.TabIndex = 2;
             // 
             // ButtonConnect
             // 
-            this.ButtonConnect.Location = new System.Drawing.Point(17, 411);
+            this.ButtonConnect.Location = new System.Drawing.Point(13, 33);
             this.ButtonConnect.Name = "ButtonConnect";
-            this.ButtonConnect.Size = new System.Drawing.Size(108, 23);
+            this.ButtonConnect.Size = new System.Drawing.Size(108, 32);
             this.ButtonConnect.TabIndex = 3;
             this.ButtonConnect.Text = "Connect";
             this.ButtonConnect.UseVisualStyleBackColor = true;
             this.ButtonConnect.Click += new System.EventHandler(this.ButtonConnect_Click);
             // 
+            // MenuStrip
+            // 
+            this.MenuStrip.BackColor = System.Drawing.Color.Transparent;
+            this.MenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.MenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.MenuFile});
+            this.MenuStrip.Location = new System.Drawing.Point(0, 0);
+            this.MenuStrip.Name = "MenuStrip";
+            this.MenuStrip.Size = new System.Drawing.Size(1277, 28);
+            this.MenuStrip.TabIndex = 4;
+            this.MenuStrip.Text = "menuStrip1";
+            // 
+            // MenuFile
+            // 
+            this.MenuFile.Name = "MenuFile";
+            this.MenuFile.Size = new System.Drawing.Size(44, 24);
+            this.MenuFile.Text = "File";
+            // 
+            // TreeViewServers
+            // 
+            this.TreeViewServers.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.TreeViewServers.Location = new System.Drawing.Point(14, 77);
+            this.TreeViewServers.Name = "TreeViewServers";
+            this.TreeViewServers.Size = new System.Drawing.Size(104, 476);
+            this.TreeViewServers.TabIndex = 5;
+            // 
+            // RTextBoxChat
+            // 
+            this.RTextBoxChat.BackColor = System.Drawing.SystemColors.Window;
+            this.RTextBoxChat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.RTextBoxChat.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RTextBoxChat.Location = new System.Drawing.Point(133, 34);
+            this.RTextBoxChat.Name = "RTextBoxChat";
+            this.RTextBoxChat.ReadOnly = true;
+            this.RTextBoxChat.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
+            this.RTextBoxChat.Size = new System.Drawing.Size(1128, 472);
+            this.RTextBoxChat.TabIndex = 6;
+            this.RTextBoxChat.Text = "";
+            // 
+            // TextBoxInput
+            // 
+            this.TextBoxInput.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.TextBoxInput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TextBoxInput.Location = new System.Drawing.Point(133, 523);
+            this.TextBoxInput.Name = "TextBoxInput";
+            this.TextBoxInput.Size = new System.Drawing.Size(1001, 30);
+            this.TextBoxInput.TabIndex = 7;
+            // 
+            // ButtonSend
+            // 
+            this.ButtonSend.Location = new System.Drawing.Point(1148, 521);
+            this.ButtonSend.Name = "ButtonSend";
+            this.ButtonSend.Size = new System.Drawing.Size(113, 31);
+            this.ButtonSend.TabIndex = 8;
+            this.ButtonSend.Text = "Send";
+            this.ButtonSend.UseVisualStyleBackColor = true;
+            this.ButtonSend.Click += new System.EventHandler(this.ButtonSend_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(555, 447);
-            this.Controls.Add(this.ButtonConnect);
-            this.Controls.Add(this.TextboxInput);
-            this.Controls.Add(this.TextboxEdit);
+            this.ClientSize = new System.Drawing.Size(1277, 565);
             this.Controls.Add(this.ButtonSend);
+            this.Controls.Add(this.TextBoxInput);
+            this.Controls.Add(this.RTextBoxChat);
+            this.Controls.Add(this.TreeViewServers);
+            this.Controls.Add(this.ButtonConnect);
+            this.Controls.Add(this.MenuStrip);
+            this.MainMenuStrip = this.MenuStrip;
             this.Name = "FormMain";
             this.Text = "FormMain";
+            this.MenuStrip.ResumeLayout(false);
+            this.MenuStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Button ButtonSend;
-        private System.Windows.Forms.TextBox TextboxEdit;
-        private System.Windows.Forms.TextBox TextboxInput;
         private System.Windows.Forms.Button ButtonConnect;
+        private System.Windows.Forms.MenuStrip MenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem MenuFile;
+        private System.Windows.Forms.TreeView TreeViewServers;
+        private System.Windows.Forms.RichTextBox RTextBoxChat;
+        private System.Windows.Forms.TextBox TextBoxInput;
+        private System.Windows.Forms.Button ButtonSend;
     }
 }

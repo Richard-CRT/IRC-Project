@@ -35,8 +35,9 @@ namespace IRCLibrary
         public AsynchronousClient SocketConnection { get; set; }
         public List<string> DefaultChannels { get; set; }
         public List<UserClass> Users = new List<UserClass>();
+        public bool Debug;
 
-        public IRCUser(string nick, string ip, int port, List<string> channels, string ident, string hostname, string authUsername, string authPassword)
+        public IRCUser(string nick, string ip, int port, List<string> channels, string ident, string hostname, string authUsername, string authPassword, bool debug = false)
         {
             Nick = nick;
             NickLower = nick.ToLower();
@@ -47,13 +48,14 @@ namespace IRCLibrary
             AuthUsername = authUsername;
             AuthPassword = authPassword;
             DefaultChannels = channels;
+            Debug = debug;
 
             //
 
             channelHandler = new ChannelHandler(this);
             connectionHandler = new ConnectionHandler(this);
             whoIsHandler = new WhoIsHandler(this);
-            logObject = new LogObject(this);
+            logObject = new LogObject(this, debug);
 
             List<Tuple<int, string>> trigger;
 
@@ -74,7 +76,10 @@ namespace IRCLibrary
             {
                 Print(Nick + " → " + message);
             }
-            logObject.log(message, receive);
+            if (!Debug)
+            {
+                logObject.log(message, receive);
+            }
             foreach (ObserverClass observer in Observers)
             {
                 List<string> parameters = message.Split(' ').ToList();
@@ -85,7 +90,6 @@ namespace IRCLibrary
                     Match groups = rgx.Match(message);
                     if (rgx.IsMatch(message))
                     {
-                        //Console.WriteLine(observer.Callback.Target.ToString() + " : "+observer.Callback.Method.ToString());
                         observer.Callback(parameters,groups.Groups,receive);
                     }
                 }
@@ -122,7 +126,14 @@ namespace IRCLibrary
         {
             IRCMessageCallBack callback = CommandHandler;
             SocketConnection = new AsynchronousClient(callback, IP, Port);
-            SocketConnection.Start();
+            if (Debug)
+            {
+                SocketConnection.StartDebug();
+            }
+            else
+            {
+                SocketConnection.Start();
+            }
         }
 
         public void AddHandler(List<Tuple<int, string>> trigger, MethodHandlerCallBack callback, bool regex)
@@ -142,7 +153,10 @@ namespace IRCLibrary
 
         public void SendRaw(string message)
         {
-            SocketConnection.Send(message+"\n");
+            if (!Debug)
+            {
+                SocketConnection.Send(message + "\n");
+            }
         }
 
         public void Shutdown()

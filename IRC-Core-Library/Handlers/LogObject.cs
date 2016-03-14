@@ -16,7 +16,9 @@ namespace IRCLibrary.handlers
         private StreamWriter LogFile;
         private string LogDirectory;
         private string OldFileName;
-        public LogObject(IRCUser lClient)
+        private System.Text.UTF8Encoding utf8WithoutBom = new System.Text.UTF8Encoding(false);
+
+        public LogObject(IRCUser lClient, bool debug)
         {
             bool exists = System.IO.Directory.Exists(Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "logs"));
 
@@ -26,11 +28,14 @@ namespace IRCLibrary.handlers
             }
             LogDirectory = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "logs");
 
-            //Pass the filepath and filename to the StreamWriter Constructor
-            string tempName = generateName();
-            LogFile = new StreamWriter(Path.Combine(LogDirectory, tempName), true);
-            LogFile.AutoFlush = true;
-            OldFileName = tempName;
+            if (!debug)
+            {
+                //Pass the filepath and filename to the StreamWriter Constructor
+                string tempName = generateName();
+                LogFile = new StreamWriter(Path.Combine(LogDirectory, tempName), true, utf8WithoutBom);
+                LogFile.AutoFlush = true;
+                OldFileName = tempName;
+            }
             Client = lClient;
         }
 
@@ -38,14 +43,14 @@ namespace IRCLibrary.handlers
         {
             return DateTime.Now.ToString("yyyyMMdd")+".log";
         }
-
+        
         public void log(string line, bool receive)
         {
             string tempName = generateName();
             if (OldFileName != tempName)
             {
                 LogFile.Close();
-                LogFile = new StreamWriter(Path.Combine(LogDirectory, tempName), true);
+                LogFile = new StreamWriter(Path.Combine(LogDirectory, tempName), true, utf8WithoutBom);
                 LogFile.AutoFlush = true;
                 OldFileName = tempName;
             }
@@ -100,7 +105,7 @@ namespace IRCLibrary.handlers
                 {
                     LogFile.Close();
                     tempLines = File.ReadAllLines(logFilesList[i]).ToList();
-                    LogFile = new StreamWriter(Path.Combine(LogDirectory, OldFileName), true);
+                    LogFile = new StreamWriter(Path.Combine(LogDirectory, OldFileName), true, utf8WithoutBom);
                     LogFile.AutoFlush = true;
                 }
                 tempLines.Reverse();
@@ -147,7 +152,7 @@ namespace IRCLibrary.handlers
                 {
                     LogFile.Close();
                     tempLines = File.ReadAllLines(logFilesList[i]).ToList();
-                    LogFile = new StreamWriter(Path.Combine(LogDirectory, OldFileName), true);
+                    LogFile = new StreamWriter(Path.Combine(LogDirectory, OldFileName), true, utf8WithoutBom);
                     LogFile.AutoFlush = true;
                 }
                 tempLines.Reverse();

@@ -34,14 +34,14 @@ namespace IRCLibrary
             // Update names list on user join
             trigger = new List<Tuple<int, string>>
             {
-                Tuple.Create(0,":([^!]*)!([^@]*)@([^ ]*) JOIN (#.*)"),
+                Tuple.Create(0,":([^!]*)!([^@]*)@([^ ]*) JOIN (#[^ ]*).*"),
             };
             lClient.AddHandler(trigger, updateNamesOnJoin, true);
 
             // Update names list on user part
             trigger = new List<Tuple<int, string>>
             {
-                Tuple.Create(0,":(.*?)![^ ]* PART (#.*)"),
+                Tuple.Create(0,":(.*?)![^ ]* PART (#[^ ]*).*"),
             };
             lClient.AddHandler(trigger, updateNamesOnPart, true);
 
