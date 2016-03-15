@@ -39,6 +39,8 @@ namespace IRCLibrary
 
         public IRCUser(string nick, string ip, int port, List<string> channels, string ident, string hostname, string authUsername, string authPassword, bool debug = false)
         {
+            Console.OutputEncoding = System.Text.Encoding.Unicode;
+
             Nick = nick;
             NickLower = nick.ToLower();
             IP = ip;

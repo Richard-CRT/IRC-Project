@@ -149,7 +149,7 @@ namespace IRCLibrary
                 if (bytesRead > 0)
                 {
                     // There might be more data, so store the data received so far.
-                    dataRead += Encoding.ASCII.GetString(state.buffer, 0, bytesRead);
+                    dataRead += Encoding.UTF8.GetString(state.buffer, 0, bytesRead);
                     string line = "";
                     int counter = 0;
                     foreach (char character in dataRead)
@@ -173,7 +173,7 @@ namespace IRCLibrary
                             counter = 0;
                         }
                     }
-                    //state.sb.Append(Encoding.ASCII.GetString(state.buffer, 0, bytesRead));
+                    //state.sb.Append(Encoding.UTF8.GetString(state.buffer, 0, bytesRead));
 
                     // Get the rest of the data.
                     client.BeginReceive(state.buffer, 0, StateObject.BufferSize, 0,
@@ -220,8 +220,8 @@ namespace IRCLibrary
 
         private void SendData(Socket client, String data)
         {
-            // Convert the string data to byte data using ASCII encoding.
-            byte[] byteData = Encoding.ASCII.GetBytes(data);
+            // Convert the string data to byte data using UTF8 encoding.
+            byte[] byteData = Encoding.UTF8.GetBytes(data);
 
             // Begin sending the data to the remote device.
             client.BeginSend(byteData, 0, byteData.Length, 0,

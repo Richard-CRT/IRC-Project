@@ -16,7 +16,6 @@ namespace IRCLibrary.handlers
         private StreamWriter LogFile;
         private string LogDirectory;
         private string OldFileName;
-        private System.Text.UTF8Encoding utf8WithoutBom = new System.Text.UTF8Encoding(false);
 
         public LogObject(IRCUser lClient, bool debug)
         {
@@ -32,7 +31,7 @@ namespace IRCLibrary.handlers
             {
                 //Pass the filepath and filename to the StreamWriter Constructor
                 string tempName = generateName();
-                LogFile = new StreamWriter(Path.Combine(LogDirectory, tempName), true, utf8WithoutBom);
+                LogFile = new StreamWriter(Path.Combine(LogDirectory, tempName), true, Encoding.UTF8);
                 LogFile.AutoFlush = true;
                 OldFileName = tempName;
             }
@@ -50,7 +49,7 @@ namespace IRCLibrary.handlers
             if (OldFileName != tempName)
             {
                 LogFile.Close();
-                LogFile = new StreamWriter(Path.Combine(LogDirectory, tempName), true, utf8WithoutBom);
+                LogFile = new StreamWriter(Path.Combine(LogDirectory, tempName), true, Encoding.UTF8);
                 LogFile.AutoFlush = true;
                 OldFileName = tempName;
             }
@@ -105,7 +104,7 @@ namespace IRCLibrary.handlers
                 {
                     LogFile.Close();
                     tempLines = File.ReadAllLines(logFilesList[i]).ToList();
-                    LogFile = new StreamWriter(Path.Combine(LogDirectory, OldFileName), true, utf8WithoutBom);
+                    LogFile = new StreamWriter(Path.Combine(LogDirectory, OldFileName), true, Encoding.UTF8);
                     LogFile.AutoFlush = true;
                 }
                 tempLines.Reverse();
@@ -152,7 +151,7 @@ namespace IRCLibrary.handlers
                 {
                     LogFile.Close();
                     tempLines = File.ReadAllLines(logFilesList[i]).ToList();
-                    LogFile = new StreamWriter(Path.Combine(LogDirectory, OldFileName), true, utf8WithoutBom);
+                    LogFile = new StreamWriter(Path.Combine(LogDirectory, OldFileName), true, Encoding.UTF8);
                     LogFile.AutoFlush = true;
                 }
                 tempLines.Reverse();
