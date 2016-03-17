@@ -39,8 +39,6 @@ namespace IRCLibrary
 
         public IRCUser(string nick, string ip, int port, List<string> channels, string ident, string hostname, string authUsername, string authPassword, bool debug = false)
         {
-            Console.OutputEncoding = System.Text.Encoding.Unicode;
-
             Nick = nick;
             NickLower = nick.ToLower();
             IP = ip;
@@ -167,6 +165,14 @@ namespace IRCLibrary
             Users = new List<UserClass>();
         }
 
+        public int addMissingUser(string user)
+        {
+            int userIndex = Users.Count();
+            Users.Add(new UserClass(this, user, "", ""));
+            SendRaw("WHO " + user);
+            return userIndex;
+        }
+
         public int findUserIndex(string user)
         {
             int indexToSearch = -1;
@@ -178,7 +184,14 @@ namespace IRCLibrary
                     break;
                 }
             }
-            return indexToSearch;
+            if (indexToSearch == -1)
+            {
+                return addMissingUser(user);
+            }
+            else
+            {
+                return indexToSearch;
+            }
         }
 
         public int findUserIndex(int id)

@@ -41,7 +41,7 @@ namespace IRCLibrary
             // Update names list on user part
             trigger = new List<Tuple<int, string>>
             {
-                Tuple.Create(0,":(.*?)![^ ]* PART (#[^ ]*).*"),
+                Tuple.Create(0,":(.*?)!([^@]*)@[^ ]* PART (#[^ ]*).*"),
             };
             lClient.AddHandler(trigger, updateNamesOnPart, true);
 
@@ -148,8 +148,9 @@ namespace IRCLibrary
                             ToRemove.Add(n);
                         }
                     }
-                    foreach (int index in ToRemove)
+                    for (int i=0;i < ToRemove.Count;i++)
                     {
+                        int index = ToRemove[i]-i;
                         Client.Channels[x].Users.RemoveAt(index);
                     }
                 }
