@@ -1,7 +1,7 @@
 # IRC-Project
 A collection of core IRC libraries and programs
 
-##Libraries
+## Libraries
 IRC-Core-Library
 
 IRC-Bot-Library
@@ -12,14 +12,14 @@ IRC-Bouncer-Server-Library
 
 IRC-Bouncer-Client-Library
 
-##Launchers
+## Launchers
 IRC-Client
 
 IRC-Bouncer
 
 IRC-Bot
 
-##Intended Programs
+## Intended Programs
 IRC Bot ► IRC
 
 IRC Client ► Bouncer ► IRC
